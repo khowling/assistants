@@ -11,13 +11,24 @@
 import 'dotenv/config'
 import { AssistantsClient, AzureKeyCredential, CreateRunOptions, OpenAIKeyCredential } from "@azure/openai-assistants";
 
+import { AzureLogger, setLogLevel } from '@azure/logger';
+setLogLevel('verbose');
+
+AzureLogger.log = (...args) => {
+  console.log(...args);
+};
+
+const azureEndpoint: string = process.env["AZURE_AI_ENDPOINT"] || "<YOUR_ENDPOINT>";
 const azureKey: string = process.env["AZURE_AI_API_KEY"] || "<YOUR_API_KEY>";
+const deployName: string = process.env["AZURE_AI_DEPLOYMENT"] || "<YOUR_DEPLOYMENT_NAME>";
 
 export async function main() {
-  const assistantsClient = new AssistantsClient("https://aishop-037a3.openai.azure.com/", new AzureKeyCredential(azureKey));
+
+  console.log (`connecting to Azure endpoint: ${azureEndpoint}, deployment: ${deployName}`)
+  const assistantsClient = new AssistantsClient(azureEndpoint, new AzureKeyCredential(azureKey));
 
   const assistantResponse = await assistantsClient.createAssistant({
-    model: "gpt-4",
+    model: deployName,
     name: "JS Math Tutor",
     instructions: "You are a personal math tutor. Write and run code to answer math questions.",
     tools: [{ type: "code_interpreter" }],
