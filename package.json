@@ -1,0 +1,21 @@
+{
+  "name": "assistants",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/recommended": "^1.0.7",
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@azure/openai-assistants": "^1.0.0-beta.5",
+    "dotenv": "^16.4.5"
+  }
+}
